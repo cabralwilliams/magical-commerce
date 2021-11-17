@@ -93,10 +93,12 @@ router.put('/:id', (req, res) => {
     },
   })
     .then((product) => {
+        //console.log(product);
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
     .then((productTags) => {
+        //console.log(productTags);
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
@@ -108,11 +110,12 @@ router.put('/:id', (req, res) => {
             tag_id,
           };
         });
+        //console.log(newProductTags);
       // figure out which ones to remove
       const productTagsToRemove = productTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
         .map(({ id }) => id);
-
+        //console.log(productTagsToRemove);
       // run both actions
       return Promise.all([
         ProductTag.destroy({ where: { id: productTagsToRemove } }),
@@ -127,20 +130,33 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    // delete one product by its `id` value
-    Product.destroy(
+    // delete associated product tags first
+    ProductTag.destroy(
         {
             where: {
-                id: req.params.id
+                "product_id": req.params.id
             }
         }
-    )
-    .then(dbPostData => {
-        if (!dbPostData) {
-            res.status(404).json({ message: 'No product found with this id' });
-            return;
-        }
-        res.json(dbPostData);
+    ).then(() => {
+        // delete one product by its `id` value
+        Product.destroy(
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+        .then(dbPostData => {
+            if (!dbPostData) {
+                res.status(404).json({ message: 'No product found with this id' });
+                return;
+            }
+            res.json(dbPostData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
     })
     .catch(err => {
         console.log(err);

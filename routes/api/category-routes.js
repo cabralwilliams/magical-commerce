@@ -80,20 +80,34 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    // delete a category by its `id` value
-    Category.destroy(
+    //Find all products that are in given category and set category_id to null before deleting category
+    Product.update({"category_id": null},
         {
             where: {
-                id: req.params.id
+                "category_id": req.params.id
             }
         }
     )
-    .then(dbPostData => {
-        if (!dbPostData) {
-            res.status(404).json({ message: 'No category found with this id' });
-            return;
-        }
-        res.json(dbPostData);
+    .then(() => {
+        // delete a category by its `id` value
+        Category.destroy(
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+        .then(dbPostData => {
+            if (!dbPostData) {
+                res.status(404).json({ message: 'No category found with this id' });
+                return;
+            }
+            res.json(dbPostData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
     })
     .catch(err => {
         console.log(err);

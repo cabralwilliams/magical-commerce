@@ -1,0 +1,50 @@
+[
+    {
+        "category_name": "Battle Equipment"
+    },
+    {
+        "category_name": "Equipment of Legend"
+    },
+    {
+        "product_name": "Ultima Weapon",
+        "price": 99999.99,
+        "stock": 1,
+        "tagIds": []
+    },
+    {
+        "product_name": "Kain's Lance",
+        "price": 99999.99,
+        "stock": 1,
+        "tagIds": []
+    },
+    {
+        "product_name": "Excalipoor",
+        "price": 0.99,
+        "stock": 1,
+        "tagIds": []
+    },
+    {
+        "product_name": "Caladbolg"
+    },
+    {
+        "product_name": "Genji Gloves",
+        "price": 99999.99,
+        "stock": 1,
+        "tagIds": []
+    },
+    {
+        "product_name": "Thief Gloves",
+        "price": 50000.99,
+        "stock": 1,
+        "tagIds": []
+    },
+    {
+        "tag_name": "weapon"
+    },
+    {
+        "tag_name": "armor"
+    },
+    {
+        "tag_name": "legendary"
+    }
+]
