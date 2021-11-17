@@ -2,6 +2,8 @@
 
   [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
+  ![Products table at the end of video.](./assets/images/commerce_image1.jpg)
+
   ## Description
   This peoject serves as the backend of a modest ecommerce website.  It allows the user to create, update, and delete categories, products, and tags associated with those products.  The application saves the data persistently in a MySQL database.
 
